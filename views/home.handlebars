@@ -1,0 +1,78 @@
+<h1>Listagem de tarefas:</h1>
+
+
+<div class="alinhador">
+  <div class="coluna_titulo">
+    <h2>À fazer</h2>
+  </div>
+
+  <div class="coluna_titulo">
+    <h2>Fazendo</h2>
+  </div>
+
+  <div class="coluna_titulo">
+    <h2>Realizado</h2>
+  </div>
+</div>
+
+<div class="alinhador">
+  <div id="afazer" name="afazer" class="coluna sortable">
+    {{#each chaves}}
+      <div class="cartao_media swappable" name="{{this}}">
+        {{this}}
+        <br/>
+        <button type="button" name="afz" onclick="mudar_afazer('{{this}}')">À Fazer</button>
+        <button type="button" name="fzd" onclick="mudar_fazendo('{{this}}')">Fazendo</button>
+        <button type="button" name="fei" onclick="mudar_feito('{{this}}')">Feito</button>
+        <form  action="/deletada" method="POST">
+          <input type="hidden" name="chave_cartao" value="{{this}}">
+          <button type="submit" name="deletar">Deletar</button>
+        </form>
+      </div>
+    {{/each}}
+  </div>
+
+  <div id="fazendo" name="fazendo" class="coluna sortable">
+    <div class="cartao_baixa">
+      Alguma coisa
+    </div>
+  </div>
+
+  <div id="realizado" name="realizado" class="coluna sortable">
+    <div class="cartao_baixa">
+      Alguma coisa
+    </div>
+    <div class="cartao_media">
+      Alguma coisa média
+    </div>
+    <div class="cartao_alta">
+      Alguma coisa que provavelmente está fazendo o mundo acabar
+    </div>
+    <div class="cartao_urgente">
+      Isso daqui então... Chama o saitama
+    </div>
+  </div>
+</div>
+<button type="button" name="cadastro" onclick="window.location.href = '/cadastro'"  class="sidebar">+</button>
+<form action="/graficos" method="POST">
+  <input type="hidden" id="afazer_total" name="afazer_total" value="">
+  <input type="hidden" id="fazendo_total" name="fazendo_total" value="">
+  <input type="hidden" id="realizado_total" name="realizado_total" value="">
+  <button type="submit" name="graficos" class="sidebar" >G</button>
+</form>
+<script type="text/javascript">
+  $(document).ready(function()
+  {
+
+      var qtd_afazer = document.getElementsByName("afazer")[0].childElementCount
+      var qtd_fazendo = document.getElementsByName("fazendo")[0].childElementCount
+      var qtd_realizado = document.getElementsByName("realizado")[0].childElementCount
+
+      var elem1 = document.getElementById("afazer_total")
+      elem1.value = qtd_afazer
+      var elem2 = document.getElementById("fazendo_total")
+      elem2.value = qtd_fazendo
+      var elem3 = document.getElementById("realizado_total")
+      elem3.value = qtd_realizado
+  });
+</script>
